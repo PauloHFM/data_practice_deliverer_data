@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  mongo_db:
+    container_name: mongodb
+    hostname: mongodb
+    image: "mongo"
+    restart: always
+    env_file:
+      - ./mongodb.env
+    # ports:
+    #   - 27017:21017
+    volumes:
+      - mongodb_volume:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/deliverer_location --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    network_mode: "host" # to work on local machine
+
+  mongo_express:
+    container_name: mongo_express
+    image: mongo-express
+    restart: always
+    # ports:
+    #  - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://localhost:27017 
+    network_mode: "host" # to work on local machine
+    depends_on:
+      - mongo_db
+    expose:
+      - 8081
+
+volumes:
+  mongodb_volume:

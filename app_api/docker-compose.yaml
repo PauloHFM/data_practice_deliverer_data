@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  app_api:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    container_name: app_api
+    hostname: app_api
+    restart: always
+    network_mode: "host" # to work on local machine
+    command: bash -c "export FLASK_APP=app_api.py && flask run --with-threads"

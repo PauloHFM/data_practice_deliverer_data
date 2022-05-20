@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mqtt
+    # ports:
+    #   - 1883:1883
+    #   - 9001:9001
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+    restart: always
+    network_mode: "host" # to work on local machine
+volumes:
+  mosquitto.conf:

@@ -1,0 +1,10 @@
+mqtt broker
+
+sudo apt install mosquitto mosquitto-clients
+
+sudo systemctl enable mosquitto
+
+sudo systemctl status mosquitto
+
+
+mosquitto_sub -h localhost -t "test/message" 

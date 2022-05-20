@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  python_sub:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    container_name: sub
+    hostname: sub
+    restart: always
+    network_mode: "host" # to work on local machine
+    command: python -u location_sub.py
