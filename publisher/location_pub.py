@@ -4,11 +4,40 @@ from datetime import date, datetime
 from multiprocessing.dummy import Pool as ThreadPool
 from time import sleep
 
+import argparse
+
 import requests
 
-delta_time_between_locations = 10  # seconds
-number_of_locations_per_order = 15
-simultaneous_workers = 1
+parser = argparse.ArgumentParser(description="Deliverer Data Publisher")
+parser.add_argument(
+    "-d",
+    metavar="delta-time",
+    required=False,
+    type=int,
+    default=10,
+    help="Time between each location ping from deliverer, in seconds",
+)
+parser.add_argument(
+    "-l",
+    metavar="locations",
+    required=False,
+    type=int,
+    default=15,
+    help="Number of locations between start and end of deliverer journey",
+)
+parser.add_argument(
+    "-n",
+    metavar="workers",
+    required=False,
+    type=int,
+    default=50,
+    help="Number of simultaneous deliverers in this publisher",
+)
+args = vars(parser.parse_args())
+
+delta_time_between_locations = args["d"]  # seconds
+number_of_locations_per_order = args["l"]
+simultaneous_workers = args["n"]
 
 api_post_data_url = "http://127.0.0.1:5000/v1/deliverer_location/"
 

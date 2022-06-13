@@ -1,15 +1,19 @@
 cd mongodb/
-docker - compose down
+echo "Turning off Mongo DB and Mongo Express"
+docker-compose down
 cd ../
 
 cd app_api/
-docker - compose down
+echo "Turning off API"
+docker-compose down
 cd ../
 
 cd subscriber/
-docker - compose down
+echo "Turning off Subscriber"
+docker-compose down
 cd ../
 
 cd mqtt/
-docker - compose down
+echo "Turning off MQTT Broker"
+docker-compose down
 cd ../

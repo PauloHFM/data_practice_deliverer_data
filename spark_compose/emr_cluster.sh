@@ -10,9 +10,7 @@ aws emr create-cluster \
 --no-termination-protected \
 --applications Name=Hadoop Name=Hive Name=Spark Name=Tez Name=Presto \
 --release-label emr-6.6.0 \
---ec2-attributes '{
-Subnets e SecGroups
-}' \
+--ec2-attributes '{Subnets e SecGroups}' \
 --log-uri 'log_paths' \
 --steps '[{"Args":["hive-script","--run-hive-script","--args","-f","s3://${BUCKET}/hive/hive_deliverer_location.hql"],"Type":"CUSTOM_JAR","ActionOnFailure":"TERMINATE_CLUSTER","Jar":"command-runner.jar","Properties":"","Name":"Deliverer Location Hive"}
 ,{"Args":["spark-submit","--deploy-mode","cluster","s3://${BUCKET}/process/deliverer_location_process.py"],"Type":"CUSTOM_JAR","ActionOnFailure":"CONTINUE","Jar":"command-runner.jar","Properties":"","Name":"Deliverer Location Process}

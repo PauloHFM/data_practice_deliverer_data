@@ -76,7 +76,7 @@ def get_last_location(order_id):
     try:
         client_mongo.server_info()
 
-    except pymongo.errors.ServerSelectionTimeoutError as err:
+    except pymongo.errors.ServerSelectionTimeoutError:
         payload = {
             'status': 'ERROR',
             'message': 'Database not responding',
@@ -86,8 +86,7 @@ def get_last_location(order_id):
             status=500,
             mimetype='application/json'
         )
-
-    return response
+        return response
 
     db = client_mongo['deliverer_data']
     collection = db['deliverer_location']
